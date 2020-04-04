@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { TodoItem } from "./TodoItem";
+import { Button, TextField, Grid } from "@material-ui/core";
 
 export class TodoList extends Component {
   constructor(props) {
@@ -73,20 +74,39 @@ export class TodoList extends Component {
 
   render() {
     return (
-      <div>
-        <input
-          type="text"
-          value={this.state.input}
-          onChange={this.updateAddTodo}
-          placeholder="Add Todo Here.."
-          name="addTodo"
-          id="addTodo"
-        />
-        <button onClick={this.handleAddTodo}>Submit</button>
-
-        <hr />
-
-        <h2>Todo List:</h2>
+      <Grid container spacing={3}>
+        <Grid item xs={3}>
+          <TextField
+            id="outlined-basic"
+            label="Outlined"
+            variant="outlined"
+            type="text"
+            value={this.state.input}
+            onChange={this.updateAddTodo}
+            placeholder="Add Todo Here.."
+            name="addTodo"
+            id="addTodo"
+          />
+        </Grid>
+        <Grid item xs={2}>
+          {this.state.input === "" ? (
+            <Button variant="contained" disabled>
+              Submit
+            </Button>
+          ) : (
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={this.handleAddTodo}
+            >
+              Submit
+            </Button>
+          )}
+        </Grid>
+        <Grid item xs={12}>
+          <h2>Todo List:</h2>
+        </Grid>
+        <Grid item xs={6}>
         {this.state.todos.map((todo) => (
           <TodoItem
             key={todo.todoId}
@@ -95,7 +115,8 @@ export class TodoList extends Component {
             toggleComepleteTodo={this.toggleComepleteTodo}
           />
         ))}
-      </div>
+        </Grid>
+      </Grid>
     );
   }
 }
